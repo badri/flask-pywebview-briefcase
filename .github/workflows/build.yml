@@ -47,13 +47,13 @@ jobs:
         pip install briefcase
 
     - name: Create Briefcase app
-      run: briefcase create ${{ matrix.platform.briefcase-platform }}
+      run: python -m briefcase create ${{ matrix.platform.briefcase-platform }}
 
     - name: Build Briefcase app
-      run: briefcase build ${{ matrix.platform.briefcase-platform }}
+      run: python -m briefcase build ${{ matrix.platform.briefcase-platform }}
 
     - name: Package Briefcase app
-      run: briefcase package ${{ matrix.platform.briefcase-platform }} --adhoc-sign
+      run: python -m briefcase package ${{ matrix.platform.briefcase-platform }} --adhoc-sign
 
     - name: Find and rename packages (Windows)
       if: matrix.platform.os == 'windows-latest'
