@@ -1,5 +1,5 @@
 import sys
-from flask_pywebview_app.app import main
+from flasktest.app import main
 
 if __name__ == '__main__':
     main()

@@ -84,7 +84,7 @@ jobs:
       run: |
         $msiFile = Get-ChildItem -Path "dist" -Filter "*.msi" | Select-Object -First 1
         if ($msiFile) {
-          $newName = "Flask-PyWebView-App-Windows.msi"
+          $newName = "FlaskTest-Windows.msi"
           Rename-Item -Path $msiFile.FullName -NewName $newName
           Write-Output "Renamed to: $newName"
         }
@@ -93,41 +93,41 @@ jobs:
       if: matrix.platform.os == 'macos-latest'
       run: |
         if [ -f dist/*.dmg ]; then
-          mv dist/*.dmg dist/Flask-PyWebView-App-macOS.dmg
-          echo "Renamed to: Flask-PyWebView-App-macOS.dmg"
+          mv dist/*.dmg dist/FlaskTest-macOS.dmg
+          echo "Renamed to: FlaskTest-macOS.dmg"
         fi
 
     - name: Find and rename packages (Linux)
       if: matrix.platform.os == 'ubuntu-latest'
       run: |
         if [ -f dist/*.AppImage ]; then
-          mv dist/*.AppImage dist/Flask-PyWebView-App-Linux.AppImage
-          chmod +x dist/Flask-PyWebView-App-Linux.AppImage
-          echo "Renamed to: Flask-PyWebView-App-Linux.AppImage"
+          mv dist/*.AppImage dist/FlaskTest-Linux.AppImage
+          chmod +x dist/FlaskTest-Linux.AppImage
+          echo "Renamed to: FlaskTest-Linux.AppImage"
         fi
 
     - name: Upload Windows artifact
       if: matrix.platform.os == 'windows-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: Flask-PyWebView-App-Windows
-        path: dist/Flask-PyWebView-App-Windows.msi
+        name: FlaskTest-Windows
+        path: dist/FlaskTest-Windows.msi
         retention-days: 30
 
     - name: Upload macOS artifact
       if: matrix.platform.os == 'macos-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: Flask-PyWebView-App-macOS
-        path: dist/Flask-PyWebView-App-macOS.dmg
+        name: FlaskTest-macOS
+        path: dist/FlaskTest-macOS.dmg
         retention-days: 30
 
     - name: Upload Linux artifact
       if: matrix.platform.os == 'ubuntu-latest'
       uses: actions/upload-artifact@v4
       with:
-        name: Flask-PyWebView-App-Linux
-        path: dist/Flask-PyWebView-App-Linux.AppImage
+        name: FlaskTest-Linux
+        path: dist/FlaskTest-Linux.AppImage
         retention-days: 30
 
   release:
@@ -148,14 +148,14 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/Flask-PyWebView-App-Windows/Flask-PyWebView-App-Windows.msi
-          artifacts/Flask-PyWebView-App-macOS/Flask-PyWebView-App-macOS.dmg
-          artifacts/Flask-PyWebView-App-Linux/Flask-PyWebView-App-Linux.AppImage
+          artifacts/FlaskTest-Windows/FlaskTest-Windows.msi
+          artifacts/FlaskTest-macOS/FlaskTest-macOS.dmg
+          artifacts/FlaskTest-Linux/FlaskTest-Linux.AppImage
         draft: false
         prerelease: false
         generate_release_notes: true
         body: |
-          ## 🚀 Flask PyWebView App Release
+          ## 🚀 FlaskTest App Release
 
           Professional cross-platform desktop application built with Briefcase.
 
