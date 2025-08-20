@@ -100,10 +100,9 @@ jobs:
     - name: Find and rename packages (Linux)
       if: matrix.platform.os == 'ubuntu-latest'
       run: |
-        if [ -f dist/*.AppImage ]; then
-          mv dist/*.AppImage dist/FlaskTest-Linux.AppImage
-          chmod +x dist/FlaskTest-Linux.AppImage
-          echo "Renamed to: FlaskTest-Linux.AppImage"
+        if [ -f dist/*.deb ]; then
+          mv dist/*.deb dist/FlaskTest-Linux.deb
+          echo "Renamed to: FlaskTest-Linux.deb"
         fi
 
     - name: Upload Windows artifact
@@ -127,7 +126,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: FlaskTest-Linux
-        path: dist/FlaskTest-Linux.AppImage
+        path: dist/FlaskTest-Linux.deb
         retention-days: 30
 
   release:
@@ -150,7 +149,7 @@ jobs:
         files: |
           artifacts/FlaskTest-Windows/FlaskTest-Windows.msi
           artifacts/FlaskTest-macOS/FlaskTest-macOS.dmg
-          artifacts/FlaskTest-Linux/FlaskTest-Linux.AppImage
+          artifacts/FlaskTest-Linux/FlaskTest-Linux.deb
         draft: false
         prerelease: false
         generate_release_notes: true
@@ -163,7 +162,7 @@ jobs:
 
           - **Windows**: Download the `.msi` installer
           - **macOS**: Download the `.dmg` disk image
-          - **Linux**: Download the `.AppImage` (universal executable)
+          - **Linux**: Download the `.deb` package
 
           ### ✨ Features
 
@@ -176,7 +175,7 @@ jobs:
 
           **Windows**: Run the `.msi` installer as administrator
           **macOS**: Open the `.dmg` and drag the app to Applications
-          **Linux**: Make executable (`chmod +x`) and run directly
+          **Linux**: Install with `sudo dpkg -i FlaskTest-Linux.deb`
 
           Built with ❤️ using Briefcase, Flask, and pywebview.
       env:
