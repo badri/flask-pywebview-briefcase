@@ -1,0 +1,134 @@
+[build-system]
+requires = ["briefcase"]
+
+[project]
+name = "flask-pywebview-app"
+version = "1.0.0"
+description = "Cross-platform desktop application using Flask, pywebview, and Qt"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Your Name", email = "your.email@example.com"}
+]
+requires-python = ">=3.11"
+
+[tool.briefcase]
+project_name = "Flask PyWebView App"
+bundle = "com.yourcompany"
+version = "1.0.0"
+url = "https://github.com/badri/flask-pywebview-briefcase"
+license = "MIT"
+author = "Your Name"
+author_email = "your.email@example.com"
+
+[tool.briefcase.app.flask_pywebview_app]
+formal_name = "Flask PyWebView App"
+description = "A cross-platform desktop application built with Flask, pywebview, and Qt"
+long_description = """
+A modern desktop application that combines the power of Flask for backend logic 
+with pywebview for native desktop integration. Features a beautiful web-based UI 
+that runs in a native window with Qt rendering.
+
+Key Features:
+- Cross-platform compatibility (Windows, macOS, Linux)
+- Modern web-based interface
+- Native desktop integration
+- Flask API backend
+- Qt5 rendering for consistent experience
+"""
+
+# App configuration
+sources = ["src/flask_pywebview_app"]
+test_sources = ["tests"]
+
+# Icon configuration (add these files to your project)
+icon = "src/flask_pywebview_app/resources/icon"
+installer_icon = "src/flask_pywebview_app/resources/icon"
+
+# Core dependencies
+requires = [
+    "Flask>=3.1.0",
+    "pywebview>=5.3.2",
+    "PyQt5>=5.15.2",
+    "PyQt5-Qt5>=5.15.2",
+    "PyQt5-sip>=12.16.1", 
+    "PyQtWebEngine>=5.15.2",
+    "PyQtWebEngine-Qt5>=5.15.2",
+    "Werkzeug>=3.1.3",
+    "Jinja2>=3.1.5",
+    "MarkupSafe>=3.0.2",
+    "itsdangerous>=2.2.0",
+    "click>=8.1.8",
+    "requests>=2.32.3"
+]
+
+# Platform-specific configurations
+[tool.briefcase.app.flask_pywebview_app.macOS]
+requires = [
+    "Flask>=3.1.0",
+    "pywebview>=5.3.2",
+    "PyQt5>=5.15.2",
+    "PyQt5-Qt5>=5.15.2", 
+    "PyQt5-sip>=12.16.1",
+    "PyQtWebEngine>=5.15.2",
+    "PyQtWebEngine-Qt5>=5.15.2",
+    "Werkzeug>=3.1.3",
+    "Jinja2>=3.1.5",
+    "MarkupSafe>=3.0.2",
+    "itsdangerous>=2.2.0",
+    "click>=8.1.8",
+    "requests>=2.32.3"
+]
+
+[tool.briefcase.app.flask_pywebview_app.linux]
+requires = [
+    "Flask>=3.1.0",
+    "pywebview>=5.3.2",
+    "PyQt5>=5.15.2",
+    "PyQt5-Qt5>=5.15.2",
+    "PyQt5-sip>=12.16.1",
+    "PyQtWebEngine>=5.15.2", 
+    "PyQtWebEngine-Qt5>=5.15.2",
+    "Werkzeug>=3.1.3",
+    "Jinja2>=3.1.5",
+    "MarkupSafe>=3.0.2",
+    "itsdangerous>=2.2.0",
+    "click>=8.1.8",
+    "requests>=2.32.3"
+]
+
+[tool.briefcase.app.flask_pywebview_app.linux.system.debian]
+system_requires = [
+    "build-essential",
+    "python3-pyqt5", 
+    "python3-pyqt5.qtwebengine",
+    "python3-pyqt5.qtwebchannel",
+    "libqt5webkit5-dev"
+]
+
+system_runtime_requires = [
+    "python3-pyqt5", 
+    "python3-pyqt5.qtwebengine", 
+    "python3-pyqt5.qtwebchannel",
+    "libqt5webkit5"
+]
+
+[tool.briefcase.app.flask_pywebview_app.windows]
+requires = [
+    "Flask>=3.1.0",
+    "pywebview>=5.3.2",
+    "PyQt5>=5.15.2",
+    "PyQt5-Qt5>=5.15.2",
+    "PyQt5-sip>=12.16.1",
+    "PyQtWebEngine>=5.15.2",
+    "PyQtWebEngine-Qt5>=5.15.2", 
+    "Werkzeug>=3.1.3",
+    "Jinja2>=3.1.5",
+    "MarkupSafe>=3.0.2",
+    "itsdangerous>=2.2.0",
+    "click>=8.1.8",
+    "requests>=2.32.3"
+]
+
+# Windows-specific settings
+system_installer = true
