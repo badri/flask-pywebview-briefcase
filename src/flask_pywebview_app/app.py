@@ -19,28 +19,21 @@ def get_resource_path():
         # Running in development
         return Path(__file__).parent
 
-def setup_qt_backend():
-    """Force Qt backend on Windows and Linux"""
-    current_platform = platform.system().lower()
-    if current_platform in ['windows', 'linux']:
-        os.environ['PYWEBVIEW_GUI'] = 'qt'
-        return 'qt'
-    return None
 
 def create_app():
     """Create and configure Flask app"""
     resource_path = get_resource_path()
-    
+
     app = Flask(
         __name__,
         template_folder=str(resource_path / 'resources' / 'templates'),
         static_folder=str(resource_path / 'resources' / 'static')
     )
-    
+
     @app.route('/')
     def index():
         return render_template('index.html')
-    
+
     @app.route('/api/hello')
     def hello():
         return jsonify({
@@ -48,7 +41,7 @@ def create_app():
             'platform': platform.system(),
             'python_version': platform.python_version()
         })
-    
+
     @app.route('/api/info')
     def app_info():
         return jsonify({
@@ -57,7 +50,7 @@ def create_app():
             'backend': 'Flask + pywebview + Qt + Briefcase',
             'platform': platform.platform()
         })
-    
+
     return app
 
 def start_flask_server(app, host='127.0.0.1', port=5000):
@@ -67,26 +60,22 @@ def start_flask_server(app, host='127.0.0.1', port=5000):
 def main():
     """Main application entry point"""
     print("🚀 Starting Flask PyWebView App...")
-    
-    # Setup Qt backend
-    gui_backend = setup_qt_backend()
-    if gui_backend:
-        print(f"📱 Using {gui_backend} backend")
-    
+
+
     # Create Flask app
     app = create_app()
-    
+
     # Start Flask in background thread
     flask_thread = threading.Thread(
-        target=start_flask_server, 
-        args=(app,), 
+        target=start_flask_server,
+        args=(app,),
         daemon=True
     )
     flask_thread.start()
-    
+
     # Give Flask time to start
     time.sleep(2)
-    
+
     # Create webview window
     try:
         webview.create_window(
@@ -95,18 +84,18 @@ def main():
             width=1200,
             height=800,
             min_size=(800, 600),
-            resizable=True,
-            shadow=True,
-            focus=True
         )
-        
-        # Start webview (blocks until window closes)
-        webview.start(debug=False, gui=gui_backend)
-        
+
+        current_platform = platform.system().lower()
+        if current_platform in ['windows', 'linux']:
+            webview.start(debug=True, gui='qt')
+        else:
+            webview.start(debug=True)
+
     except Exception as e:
         print(f"❌ Error starting webview: {e}")
         sys.exit(1)
-    
+
     print("👋 Application closed")
 
 if __name__ == '__main__':
