@@ -86,6 +86,8 @@ requires = [
 ]
 
 [tool.briefcase.app.flask_pywebview_app.linux]
+# Override package name for Debian compatibility (lowercase, no spaces)
+formal_name = "flask-pywebview-app"
 requires = [
     "Flask==3.1.0",
     "pywebview<5",
