@@ -29,6 +29,20 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Set Python as default (Windows)
+      if: matrix.platform.os == 'windows-latest'
+      shell: powershell
+      run: |
+        $pythonPath = (Get-Command python).Source
+        echo "PYTHON=$pythonPath" >> $env:GITHUB_ENV
+
+    - name: Set Python as default (macOS)
+      if: matrix.platform.os == 'macos-latest'
+      run: |
+        # Create symlink to make python3.11 the default python3
+        sudo ln -sf $(which python3.11) /usr/local/bin/python3
+        echo "PYTHON=$(which python3.11)" >> $GITHUB_ENV
+
     - name: Install system dependencies (Linux)
       if: matrix.platform.os == 'ubuntu-latest'
       run: |
@@ -40,6 +54,8 @@ jobs:
           python3-pyqt5.qtwebchannel \
           libqt5webkit5-dev \
           qttools5-dev-tools
+        # Create symlink to make python3.11 the default python3
+        sudo ln -sf $(which python3.11) /usr/bin/python3
 
     - name: Install Briefcase
       run: |
