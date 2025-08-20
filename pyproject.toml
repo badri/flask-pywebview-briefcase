@@ -21,7 +21,7 @@ license.file = "LICENSE"
 author = "Your Name"
 author_email = "your.email@example.com"
 
-[tool.briefcase.app.flask_pywebview_app]
+[tool.briefcase.app.flask]
 formal_name = "Flask PyWebView App"
 description = "A cross-platform desktop application built with Flask, pywebview, and Qt"
 long_description = """
@@ -64,7 +64,7 @@ requires = [
 ]
 
 # Platform-specific configurations
-[tool.briefcase.app.flask_pywebview_app.macOS]
+[tool.briefcase.app.flask.macOS]
 requires = [
     "Flask==3.1.0",
     "pywebview<5",
@@ -85,10 +85,8 @@ requires = [
     "numpy"
 ]
 
-[tool.briefcase.app.flask_pywebview_app.linux]
+[tool.briefcase.app.flask.linux]
 # Override package name for Debian compatibility (lowercase, no spaces, no underscores)
-formal_name = "flask-pywebview-app"
-package_name = "flask-pywebview-app"
 requires = [
     "Flask==3.1.0",
     "pywebview<5",
@@ -110,7 +108,7 @@ requires = [
     "numpy"
 ]
 
-[tool.briefcase.app.flask_pywebview_app.linux.system.debian]
+[tool.briefcase.app.flask.linux.system.debian]
 system_requires = [
     "build-essential",
     "python3-pyqt5",
@@ -126,7 +124,7 @@ system_runtime_requires = [
     "libqt5webkit5"
 ]
 
-[tool.briefcase.app.flask_pywebview_app.windows]
+[tool.briefcase.app.flask.windows]
 requires = [
     "Flask==3.1.0",
     "pywebview<5",
