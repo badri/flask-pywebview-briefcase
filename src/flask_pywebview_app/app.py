@@ -88,7 +88,7 @@ def main():
 
         current_platform = platform.system().lower()
         if current_platform in ['windows', 'linux']:
-            webview.start(debug=True, gui='qt')
+            webview.start(gui='qt')
         else:
             webview.start(debug=True)
 
